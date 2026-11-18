@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="app-version" content="2026.11.18.1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="צ׳ק ליסט מעבדה" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>צ׳ק ליסט עבודה במעבדה</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <link rel="icon" type="image/png" href="icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="header-top">
+        <div>
+          <span class="badge-lab">פרוטוקול מעבדה</span>
+          <h1>צ׳ק ליסט עבודה במעבדה</h1>
+        </div>
+        <div class="header-actions">
+          <button type="button" id="printBtn" class="icon-btn" title="הדפסה / שמירה כ-PDF">
+            🖨️
+          </button>
+          <button type="button" id="resetBtn" class="icon-btn danger" title="איפוס סימונים">
+            ↺
+          </button>
+        </div>
+      </div>
+
+      <!-- Primary Mode Tabs -->
+      <nav class="primary-tabs" role="tablist">
+        <button type="button" class="primary-tab active" data-mode="study_day" role="tab" aria-selected="true">
+          🧪 ימי מחקר (פרוטוקול נחקר)
+        </button>
+        <button type="button" class="primary-tab" data-mode="routine" role="tab" aria-selected="false">
+          📋 עבודה שוטפת
+        </button>
+      </nav>
+
+      <!-- Progress Bar -->
+      <div class="progress-wrapper">
+        <div class="progress-meta">
+          <span id="progressLabel">התקדמות יומית</span>
+          <span id="progressStats">0 / 0 הושלמו (0%)</span>
+        </div>
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Study Day Context Controls (Visible only in Study Day mode) -->
+    <section id="studyControls" class="context-card">
+      <div class="input-row">
+        <div class="field-group">
+          <label for="subjectCode">קוד נחקר</label>
+          <input type="text" id="subjectCode" placeholder="לדוגמה: SUB-014" autocomplete="off" />
+        </div>
+        <div class="field-group">
+          <label for="visitDate">תאריך מפגש</label>
+          <input type="date" id="visitDate" />
+        </div>
+      </div>
+
+      <div class="group-selector-wrap">
+        <span class="group-label">קבוצת מחקר:</span>
+        <div class="segmented-control" role="group" aria-label="בחירת קבוצת מחקר">
+          <button type="button" class="seg-btn active" data-group="strength">
+            💪 קבוצת הכוח
+          </button>
+          <button type="button" class="seg-btn" data-group="cr_tre">
+            ⏱️ קבוצות CR / TRE
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checklist Container -->
+    <main id="checklistContainer" class="sections-list"></main>
+
+    <!-- Notes Section -->
+    <section class="notes-card">
+      <label for="sessionNotes">📝 הערות יום עבודה / חריגים</label>
+      <textarea id="sessionNotes" rows="3" placeholder="תיעוד זמנים חריגים, בעיות כיול, הערות על הנחקר..."></textarea>
+    </section>
+
+    <!-- Backup: data lives only on this device, so let people save / restore a file -->
+    <section id="dataCard" class="data-card">
+      <h3>💾 הנתונים שלך</h3>
+      <p id="backupText"></p>
+      <div class="data-row">
+        <button type="button" id="backupSave" class="btn pri">שמירת גיבוי</button>
+        <button type="button" id="backupLoad" class="btn">שחזור מגיבוי</button>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <span>נשמר אוטומטית במכשיר • עובד גם אופליין</span>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
