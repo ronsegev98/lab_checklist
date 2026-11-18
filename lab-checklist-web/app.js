@@ -144,7 +144,7 @@ function fmtDate(iso) {
 }
 
 function renderBackup() {
-  const lb = loadLocal("lastBackup", null);
+  const lb = loadLocal("lab_checklist_lastBackup", null);
   const old = !lb || Date.now() - new Date(lb) > 30 * 864e5;
   document.getElementById("dataCard").classList.toggle("warn", old);
   document.getElementById("backupText").textContent =
@@ -169,7 +169,7 @@ async function saveBackup() {
       a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 5000);
     }
-    saveLocal("lastBackup", new Date().toISOString());
+    saveLocal("lab_checklist_lastBackup", new Date().toISOString());
     renderBackup();
     toast("הגיבוי נשמר");
   } catch (e) {
